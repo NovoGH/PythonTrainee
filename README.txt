@@ -27,3 +27,7 @@ if user == "admin" and passw == "1234":
         print("Rol no autorizado")
 else:
     print("Usuario o contraseña incorrectos")
+
+
+
+GitHub: https://github.com/NovoGH/PythonTrainee
