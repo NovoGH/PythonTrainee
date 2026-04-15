@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyber Security Dashboard</title>
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-card: #020617;
+      --bg-soft: #020617;
+      --accent: #38bdf8;
+      --accent-soft: #0ea5e9;
+      --text: #e5e7eb;
+      --muted: #6b7280;
+      --danger: #f97373;
+      --warning: #facc15;
+      --success: #4ade80;
+      --border: #1f2937;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #020617 0, #020617 55%);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    aside {
+      background: linear-gradient(180deg, #020617, #020617);
+      border-radius: 16px;
+      padding: 1.25rem;
+      border: 1px solid #1f2937;
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.7);
+    }
+
+    .logo {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .tagline {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: grid;
+      gap: 0.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-item {
+      padding: 0.55rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      cursor: default;
+    }
+
+    .nav-item--active {
+      background: radial-gradient(circle at top left, var(--accent-soft), #020617);
+      color: var(--text);
+    }
+
+    .metric-pill {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0.75rem;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid #1f2937;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    .metric-pill span:first-child {
+      color: var(--muted);
+    }
+
+    .metric-pill span:last-child {
+      font-weight: 500;
+    }
+
+    .metric-pill--danger span:last-child {
+      color: var(--danger);
+    }
+
+    .metric-pill--warning span:last-child {
+      color: var(--warning);
+    }
+
+    .metric-pill--ok span:last-child {
+      color: var(--success);
+    }
+
+    /* Main area */
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .header-title h1 {
+      font-size: 1.4rem;
+      color: var(--text);
+    }
+
+    .header-title span {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .header-badge {
+      font-size: 0.75rem;
+      border-radius: 999px;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid #1f2937;
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 1.4fr;
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.08), #020617);
+      border-radius: 16px;
+      padding: 1.1rem 1.2rem;
+      border: 1px solid #1f2937;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .card-kpi {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .card-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+    }
+
+    .kpi-chip {
+      border-radius: 12px;
+      border: 1px solid #1f2937;
+      padding: 0.55rem 0.6rem;
+      background: rgba(15, 23, 42, 0.85);
+      font-size: 0.78rem;
+    }
+
+    .chip-label {
+      color: var(--muted);
+      margin-bottom: 0.1rem;
+    }
+
+    .chip-value {
+      font-weight: 500;
+    }
+
+    .chip-danger {
+      color: var(--danger);
+    }
+    .chip-warning {
+      color: var(--warning);
+    }
+    .chip-ok {
+      color: var(--success);
+    }
+
+    /* Fake chart */
+    .chart {
+      margin-top: 0.6rem;
+      height: 140px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.3), #020617);
+      border: 1px dashed #1f2937;
+      padding: 0.6rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .chart-lines {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      gap: 0.3rem;
+    }
+
+    .bar {
+      flex: 1;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.8), rgba(8, 47, 73, 0.3));
+    }
+
+    .chart-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Events table */
+    .events {
+      margin-top: 0.7rem;
+      border-radius: 12px;
+      border: 1px solid #1f2937;
+      background: rgba(15, 23, 42, 0.9);
+      overflow: hidden;
+    }
+
+    .events-header,
+    .events-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1.3fr 1.1fr 1.1fr 0.8fr;
+      column-gap: 0.5rem;
+      align-items: center;
+    }
+
+    .events-header {
+      padding: 0.4rem 0.75rem;
+      background: rgba(15, 23, 42, 0.95);
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .events-row {
+      padding: 0.45rem 0.75rem;
+      font-size: 0.78rem;
+      border-top: 1px solid #111827;
+    }
+
+    .badge {
+      border-radius: 999px;
+      padding: 0.1rem 0.45rem;
+      font-size: 0.7rem;
+    }
+
+    .badge-danger {
+      background: rgba(248, 113, 113, 0.12);
+      color: var(--danger);
+    }
+
+    .badge-warning {
+      background: rgba(250, 204, 21, 0.12);
+      color: var(--warning);
+    }
+
+    .badge-ok {
+      background: rgba(74, 222, 128, 0.12);
+      color: var(--success);
+    }
+
+    /* Right column card */
+    .news-list {
+      margin-top: 0.6rem;
+      display: grid;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+    }
+
+    .news-item {
+      padding: 0.45rem 0.5rem;
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid #111827;
+    }
+
+    .news-title {
+      margin-bottom: 0.1rem;
+    }
+
+    .news-meta {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      aside {
+        order: -1;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside>
+      <div class="logo">CYBERWATCH<span style="color:#64748b;">.IO</span></div>
+      <p class="tagline">
+        Panel en tiempo real para monitorear amenazas, IPs maliciosas y eventos críticos.
+      </p>
+
+      <p class="nav-title">Panel</p>
+      <ul class="nav-list">
+        <li class="nav-item nav-item--active">Visión general</li>
+        <li class="nav-item">Eventos en vivo</li>
+        <li class="nav-item">IPs bloqueadas</li>
+        <li class="nav-item">Reportes</li>
+      </ul>
+
+      <p class="nav-title">Estado actual</p>
+      <div class="metric-pill metric-pill--danger">
+        <span>Amenazas críticas</span>
+        <span>7</span>
+      </div>
+      <div class="metric-pill metric-pill--warning">
+        <span>Ataques en la última hora</span>
+        <span>124</span>
+      </div>
+      <div class="metric-pill metric-pill--ok">
+        <span>Sistemas monitoreados</span>
+        <span>32</span>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main>
+      <header class="header">
+        <div class="header-title">
+          <h1>Threat Intelligence Dashboard</h1>
+          <span>Resumen de actividad · Últimos 60 minutos</span>
+        </div>
+        <div class="header-badge">
+          Modo demo · Datos simulados
+        </div>
+      </header>
+
+      <section class="grid">
+        <!-- Left: main metrics + chart + events -->
+        <section class="card">
+          <div class="card-header">
+            <span class="card-title">Amenazas detectadas (24h)</span>
+            <span class="card-kpi">1,248</span>
+          </div>
+          <p class="card-sub">
+            Incluye escaneos de puertos, intentos de login y tráfico a dominios sospechosos.
+          </p>
+
+          <div class="kpi-row">
+            <div class="kpi-chip">
+              <p class="chip-label">IPs maliciosas</p>
+              <p class="chip-value chip-danger">312</p>
+            </div>
+            <div class="kpi-chip">
+              <p class="chip-label">Intentos de acceso</p>
+              <p class="chip-value chip-warning">5.4k</p>
+            </div>
+            <div class="kpi-chip">
+              <p class="chip-label">Bloqueos automáticos</p>
+              <p class="chip-value chip-ok">91%</p>
+            </div>
+          </div>
+
+          <!-- Fake bar chart -->
+          <div class="chart" id="chart">
+            <div class="chart-lines" id="chart-bars">
+              <!-- JS llenará las barras -->
+            </div>
+            <div class="chart-footer">
+              <span>Hace 60 min</span>
+              <span>Ahora</span>
+            </div>
+          </div>
+
+          <!-- Events table -->
+          <div class="events">
+            <div class="events-header">
+              <span>Fecha / hora</span>
+              <span>IP origen</span>
+              <span>País</span>
+              <span>Tipo</span>
+              <span>Sev.</span>
+            </div>
+
+            <div class="events-row">
+              <span>16:48</span>
+              <span>185.23.91.10</span>
+              <span>RU</span>
+              <span>Brute force SSH</span>
+              <span><span class="badge badge-danger">Alta</span></span>
+            </div>
+            <div class="events-row">
+              <span>16:45</span>
+              <span>201.91.33.8</span>
+              <span>BR</span>
+              <span>Scan de puertos</span>
+              <span><span class="badge badge-warning">Media</span></span>
+            </div>
+            <div class="events-row">
+              <span>16:42</span>
+              <span>45.19.220.4</span>
+              <span>US</span>
+              <span>Tráfico a dominio C2</span>
+              <span><span class="badge badge-danger">Alta</span></span>
+            </div>
+            <div class="events-row">
+              <span>16:38</span>
+              <span>190.10.18.200</span>
+              <span>CL</span>
+              <span>Login fallido VPN</span>
+              <span><span class="badge badge-warning">Media</span></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right: side panel -->
+        <section class="card">
+          <div class="card-header">
+            <span class="card-title">Noticias de seguridad</span>
+          </div>
+          <p class="card-sub">
+            Últimos titulares que pueden impactar tu superficie de ataque.
+          </p>
+
+          <div class="news-list">
+            <article class="news-item">
+              <h3 class="news-title">Nueva campaña de phishing dirigida a credenciales corporativas</h3>
+              <p class="news-meta">Hace 2 h · Fuente interna de threat intel</p>
+            </article>
+            <article class="news-item">
+              <h3 class="news-title">Actualización crítica disponible para servidores VPN</h3>
+              <p class="news-meta">Hoy · Recomendada para aplicar en menos de 48 h</p>
+            </article>
+            <article class="news-item">
+              <h3 class="news-title">Incremento de escaneos desde rangos IP de nube pública</h3>
+              <p class="news-meta">Hace 5 h · Monitorear reglas de firewall</p>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Genera barras aleatorias para simular un gráfico sencillo
+    const barsContainer = document.getElementById("chart-bars");
+    const points = [20, 55, 35, 70, 48, 90, 65, 80];
+
+    points.forEach((value) => {
+      const bar = document.createElement("div");
+      bar.className = "bar";
+      bar.style.height = value + "%";
+      barsContainer.appendChild(bar);
+    });
+  </script>
+</body>
+</html>

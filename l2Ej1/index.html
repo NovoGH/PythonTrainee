@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!-- <!DOCTYPE html> Indica al navegador que el documento está escrito en HTML5 -->
+
+<html lang="es">
+<!-- <html> Es el elemento raíz que envuelve todo el contenido de la página -->
+
+<head>
+  <!-- <head> Contiene metadatos e información que no se muestra directamente en la página -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi primera página semántica</title>
+
+<style>
+  
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: rgb(59, 59, 158);
+            color: #333333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #eef0eb;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h2 { color: rgb(246, 11, 11);} 
+
+        h3 { color: rgb(185, 238, 10);}
+
+        header{color: blanchedalmond}
+
+        article { color: whitesmoke}
+
+        aside
+        {
+          color: yellow;
+        }
+
+        footer { color: green;}
+
+
+    </style>
+
+</head>
+
+<body>
+  <!-- <body> Contiene todo el contenido visible para el usuario -->
+
+  <header>
+    <!-- <header> Se usa para el encabezado principal: título, logo, navegación inicial -->
+    <h1>Blog de Aprendizaje Front-End</h1>
+    <!-- <h1> Es el título principal de la página o sección -->
+    <p>Compartiendo mi camino aprendiendo HTML, CSS y JavaScript.</p>
+    <!-- <p> Representa un párrafo de texto -->
+  </header>
+
+  <main>
+    <!-- <main> Contiene el contenido principal único de la página -->
+    <section>
+      <!-- <section> Agrupa contenido relacionado dentro de un bloque temático -->
+      <h2>Entrada destacada</h2>
+
+      <article>
+        <!-- <article> Representa un contenido independiente: post, noticia, tarjeta, etc. -->
+        <h3>Mi primer día con HTML</h3>
+        <p>
+          Hoy creé mi primera página web desde cero. Aprendí a usar etiquetas básicas
+          como <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code> y a estructurar mejor el contenido.
+        </p>
+        <p>
+          También entendí la importancia de las etiquetas semánticas para que el código
+          sea más claro tanto para personas como para buscadores.
+        </p>
+      </article>
+    </section>
+
+    <aside>
+      <!-- <aside> Muestra contenido relacionado pero no esencial: barras laterales, datos extra -->
+      <h2>Sobre mí</h2>
+      <p>
+        Soy una persona en transición al mundo TI, interesada en el desarrollo web
+        y en construir interfaces limpias y accesibles.
+      </p>
+    </aside>
+  </main>
+
+  <footer>
+    <!-- <footer> Contiene el pie de página: información final, derechos, enlaces secundarios -->
+    <p>&copy; 2026 · Mi bitácora de aprendizaje Front-End</p>
+  </footer>
+
+</body>
+</html>

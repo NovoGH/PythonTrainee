@@ -1,0 +1,40 @@
+body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: lightblue;
+            color: #333333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+       
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: red;
+        }
+
+        header{color: blanchedalmond}
+
+        article { color: whitesmoke}
+
+        aside
+        {
+          color: yellow;
+        }
+
+        footer { color: green;}
+
+        img {
+            display: block;     /* la vuelve elemento de bloque */
+            margin: 0 auto;     /* márgenes izquierdo y derecho automáticos */
+        }
